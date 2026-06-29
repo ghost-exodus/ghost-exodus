@@ -2,7 +2,6 @@ name: Generate Snake Animation
 
 on:
   schedule:
-    # Runs automatically every 24 hours
     - cron: "0 0 * * *"
   workflow_dispatch:
   push:
@@ -12,8 +11,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
+    # FIX 1: This block gives the action permission to push the files
+    permissions:
+      contents: write 
+      
     steps:
-      - uses: actions/checkout@v3
+      # FIX 2: Updated to v4 to clear the Node.js deprecation warning
+      - uses: actions/checkout@v4 
       
       - uses: Platane/snk@v3
         id: snake-gif
